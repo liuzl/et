@@ -3,11 +3,11 @@ package et
 import (
 	"fmt"
 	"github.com/antchfx/htmlquery"
-	"github.com/liuzl/goutil"
 	"golang.org/x/net/html"
 	"net/url"
 	"strings"
 	"time"
+	"zliu.org/goutil"
 )
 
 func (p *Parser) Parse(

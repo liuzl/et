@@ -3,9 +3,9 @@ package et
 import (
 	"crawler.club/dl"
 	"encoding/json"
-	"github.com/liuzl/goutil"
 	"io/ioutil"
 	"testing"
+	"zliu.org/goutil"
 )
 
 func TestParse(t *testing.T) {
