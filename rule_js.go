@@ -7,7 +7,7 @@ import (
 
 func (r *Rule) RunJs(v interface{}) (interface{}, error) {
 	if r.Js == "" {
-		return nil, nil
+		return v, nil
 	}
 	var err error
 	r.Do(func() {
