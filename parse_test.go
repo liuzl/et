@@ -3,6 +3,7 @@ package et
 import (
 	"crawler.club/dl"
 	"encoding/json"
+	"github.com/liuzl/goutil"
 	"io/ioutil"
 	"testing"
 )
@@ -16,7 +17,7 @@ func TestParse(t *testing.T) {
 	if err = json.Unmarshal(b, p); err != nil {
 		t.Fatal(err)
 	}
-	url := "http://www.newsmth.net/nForum/article/Taiwan/50328"
+	url := "http://www.newsmth.net/nForum/article/RealEstate/7124059"
 	resp := dl.DownloadUrl(url)
 	if resp.Error != nil {
 		t.Fatal(resp.Error)
@@ -25,6 +26,12 @@ func TestParse(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(urls)
-	t.Log(items)
+	if b, err = goutil.JsonMarshalIndent(urls, "", "  "); err != nil {
+		t.Fatal(err)
+	}
+	t.Log(string(b))
+	if b, err = goutil.JsonMarshalIndent(items, "", "  "); err != nil {
+		t.Fatal(err)
+	}
+	t.Log(string(b))
 }

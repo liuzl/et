@@ -25,7 +25,7 @@
         "item_key": "content",
         "xpath": ".//td[contains(concat(' ', @class, ' '), ' a-content ')]",
         "re": "",
-        "js": "function process(s) {\n    console.log(s);\n    var pattern = /(?:.*?)发信人:(.+?) \\((.+?)\\), 信区:(.+?)<br\\/>(?:.*)标(?:.*?)题:(.+?)<br\\/>(?:.*?)发信站:(.+?)\\((.+?)\\)(?:.*?)站内(.+?)※ 来源:(.+?)\\[FROM: (.+?)\\]/mg;\n    var names = new Array(\"user\", \"nick\", \"board\", \"title\", \"mailsite\", \"time\", \"content\", \"source\", \"ip\");\n    var obj = {};\n    var r = pattern.exec(s);\n    if (r) {\n        for (var i = 1; i < r.length; i++) {\n            var ret = r[i].replace(/<br\\/>/g, \"\\n\").replace(/<(?:.|\\s)*?>/g, \"\");\n            obj[names[i-1]] = ret.trim();\n        }\n    }\n    \n    var img_pattern = /单击此查看原图(?:.*?)src=\"(.+?)\"/mg;\n    r = img_pattern.exec(s);\n    var imgs = [];\n    while (r) {\n        imgs.push(r[1]);\n        r = img_pattern.exec(s);\n    }\n    if (imgs.length > 0) {\n        obj.imgs = imgs;\n    }\n    \n    console.log(JSON.stringify(obj));\n    return obj;\n}"
+        "js": ""
       },
       {
         "type": "string",
@@ -36,5 +36,5 @@
       }
     ]
   },
-  "js": "function copy_default(s, d) {\n    d.from_url_ = s.from_url_;\n    d.crawl_time_ = s.crawl_time_;\n    d.from_parser_name_ = s.from_parser_name_;\n}\nfunction process(r) {\n    console.log(JSON.stringify(r));\n    var results = [];\n    for (var i = 0; i < r.length; i++) {\n        if ('posts' in r[i]) {\n            var article = r[i].from_url_;\n            var p = /([^\\/]+?\\/\\d+)/g;\n            var m = p.exec(article);\n            if (m) {\n                article = m[1];\n            }\n           \n            for (var j = 0; j < r[i].posts.length; j++) {\n                var item = r[i].posts[j].content;\n                item.floor = r[i].posts[j].floor;\n                if (item.floor == '楼主') item.floor = \"0\";\n                copy_default(r[i], item);\n                item.es_type = \"posts\";\n                item.id = article + \"#\" + item.floor;\n                results.push(item);\n            }\n        }\n    }\n    return results;\n}"
+  "js": ""
 }
