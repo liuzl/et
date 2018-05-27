@@ -95,8 +95,8 @@ func (p *Parser) parseNode(node *html.Node, name string,
 	item := make(map[string]interface{})
 
 	for _, rule := range p.Rules[name] {
-		if rule.ItemKey == "" {
-			return nil, nil, nil, fmt.Errorf("ItemKey for %s is empty", name)
+		if rule.Key == "" {
+			return nil, nil, nil, fmt.Errorf("Key for %s is empty", name)
 		}
 		vals, err := p.parseNodeByRule(node, rule, pageUrl)
 		if err != nil {
@@ -104,31 +104,31 @@ func (p *Parser) parseNode(node *html.Node, name string,
 		}
 		if rule.Type == "dom" {
 			for _, v := range vals {
-				nodes = append(nodes, &DomNode{rule.ItemKey, v.(*html.Node), item})
+				nodes = append(nodes, &DomNode{rule.Key, v.(*html.Node), item})
 			}
 		} else {
 			if rule.Type == "url" {
 				for _, v := range vals {
 					if u, ok := v.(string); ok {
-						urls = append(urls, &UrlTask{rule.ItemKey, u})
+						urls = append(urls, &UrlTask{rule.Key, u})
 					}
 				}
 			}
 
-			if item[rule.ItemKey] == nil {
+			if item[rule.Key] == nil {
 				if len(vals) == 1 {
-					item[rule.ItemKey] = vals[0]
+					item[rule.Key] = vals[0]
 				} else if len(vals) > 1 {
-					item[rule.ItemKey] = interface{}(vals)
+					item[rule.Key] = interface{}(vals)
 				}
 			} else {
-				switch item[rule.ItemKey].(type) {
+				switch item[rule.Key].(type) {
 				case []interface{}:
-					item[rule.ItemKey] = append(
-						item[rule.ItemKey].([]interface{}), vals...)
+					item[rule.Key] = append(
+						item[rule.Key].([]interface{}), vals...)
 				default:
-					item[rule.ItemKey] = append(
-						[]interface{}{item[rule.ItemKey]}, vals...)
+					item[rule.Key] = append(
+						[]interface{}{item[rule.Key]}, vals...)
 				}
 			}
 		}
@@ -162,6 +162,8 @@ func (p *Parser) parseNodeByRule(
 			ret = append(ret, interface{}(htmlquery.InnerText(n)))
 		case "html":
 			ret = append(ret, interface{}(htmlquery.OutputHTML(n, true)))
+		default:
+			return nil, fmt.Errorf("unkown rule type: %s", rule.Type)
 		}
 	}
 	if rule.Re != "" {

@@ -6,14 +6,14 @@
     "root": [
       {
         "type": "url",
-        "item_key": "article",
+        "key": "article",
         "xpath": "//div[@class='t-pre']//li[@class='page-select']/following-sibling::li[1]/a/@href",
         "re": "",
         "js": ""
       },
       {
         "type": "dom",
-        "item_key": "posts",
+        "key": "posts",
         "xpath": "//table[contains(concat(' ', @class, ' '), ' article ')]",
         "re": "",
         "js": ""
@@ -22,14 +22,14 @@
     "posts": [
       {
         "type": "html",
-        "item_key": "content",
+        "key": "content",
         "xpath": ".//td[contains(concat(' ', @class, ' '), ' a-content ')]",
         "re": "",
         "js": ""
       },
       {
         "type": "text",
-        "item_key": "floor",
+        "key": "floor",
         "xpath": ".//span[contains(@class, 'a-pos')]",
         "re": "(\\d+|楼主)",
         "js": "function process(s){if(s=='楼主') return '0'; return s;}"

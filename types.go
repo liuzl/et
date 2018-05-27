@@ -8,25 +8,24 @@ import (
 
 type Rule struct {
 	sync.Once
-	// RuleTypes: url, dom, text, html
-	Type    string `json:"type"`
-	ItemKey string `json:"item_key"`
-	Xpath   string `json:"xpath"`
-	Re      string `json:"re"`
-	Js      string `json:"js"`
-
 	vm *otto.Otto
+	// RuleTypes: url, dom, text, html
+	Type  string `json:"type"`
+	Key   string `json:"key"`
+	Xpath string `json:"xpath"`
+	Re    string `json:"re"`
+	Js    string `json:"js"`
 }
 
 type Parser struct {
 	sync.Once
+	vm *otto.Otto
+
 	Name          string             `json:"name"`
 	DefaultFields bool               `json:"default_fields""`
 	ExampleUrl    string             `json:"example_url"`
 	Rules         map[string][]*Rule `json:"rules"`
 	Js            string             `json:"js"`
-
-	vm *otto.Otto
 }
 
 type DomNode struct {
