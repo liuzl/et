@@ -28,7 +28,7 @@
         "js": ""
       },
       {
-        "type": "string",
+        "type": "text",
         "item_key": "floor",
         "xpath": ".//span[contains(@class, 'a-pos')]",
         "re": "(\\d+|楼主)",

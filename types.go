@@ -8,7 +8,7 @@ import (
 
 type Rule struct {
 	sync.Once
-	// four RuleTypes: url, dom, string, html
+	// RuleTypes: url, dom, text, html
 	Type    string `json:"type"`
 	ItemKey string `json:"item_key"`
 	Xpath   string `json:"xpath"`

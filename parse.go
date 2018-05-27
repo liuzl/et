@@ -158,7 +158,7 @@ func (p *Parser) parseNodeByRule(
 			} else {
 				ret = append(ret, interface{}(u))
 			}
-		case "string":
+		case "text":
 			ret = append(ret, interface{}(htmlquery.InnerText(n)))
 		case "html":
 			ret = append(ret, interface{}(htmlquery.OutputHTML(n, true)))
@@ -167,7 +167,7 @@ func (p *Parser) parseNodeByRule(
 	if rule.Re != "" {
 		var vals []interface{}
 		switch rule.Type {
-		case "string":
+		case "text":
 			for _, v := range ret {
 				res, err := goutil.RegexpParse(v.(string), rule.Re)
 				if err != nil {
