@@ -10,11 +10,11 @@ type Rule struct {
 	sync.Once
 	vm *otto.Otto
 	// RuleTypes: url, dom, text, html
-	Type  string `json:"type"`
-	Key   string `json:"key"`
-	Xpath string `json:"xpath"`
-	Re    string `json:"re"`
-	Js    string `json:"js"`
+	Type  string   `json:"type"`
+	Key   string   `json:"key"`
+	Xpath string   `json:"xpath"`
+	Re    []string `json:"re"`
+	Js    string   `json:"js"`
 }
 
 type Parser struct {

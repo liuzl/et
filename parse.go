@@ -159,31 +159,51 @@ func (p *Parser) parseNodeByRule(
 				ret = append(ret, interface{}(u))
 			}
 		case "text":
-			ret = append(ret, interface{}(htmlquery.InnerText(n)))
+			ret = append(ret, interface{}(strings.TrimSpace(htmlquery.InnerText(n))))
 		case "html":
 			ret = append(ret, interface{}(htmlquery.OutputHTML(n, true)))
 		default:
 			return nil, fmt.Errorf("unkown rule type: %s", rule.Type)
 		}
 	}
-	if rule.Re != "" {
+	if rule.Re != nil {
 		var vals []interface{}
 		switch rule.Type {
-		case "text":
+		case "text", "html":
 			for _, v := range ret {
-				res, err := goutil.RegexpParse(v.(string), rule.Re)
-				if err != nil {
-					return nil, fmt.Errorf("Re:[%s] error: %+v", rule.Re, err)
+				obj := make(map[string]string)
+				for _, r := range rule.Re {
+					m, err := goutil.RegexpExtract(v.(string), r)
+					if err != nil {
+						return nil, fmt.Errorf("regex:[%s] error:%+v", r, err)
+					}
+					for k, vv := range m {
+						obj[k] = vv
+					}
 				}
-				for _, i := range res {
-					vals = append(vals, interface{}(i))
+				switch len(obj) {
+				case 0:
+					vals = append(vals, v)
+				case 1:
+					for _, vv := range obj {
+						vals = append(vals, interface{}(vv))
+					}
+				default:
+					vals = append(vals, interface{}(obj))
 				}
 			}
 			ret = vals
 		case "url":
 			for _, v := range ret {
-				if goutil.RegexpMatch(v.(string), rule.Re) {
-					vals = append(vals, interface{}(v))
+				drop := false
+				for _, r := range rule.Re {
+					if !goutil.RegexpMatch(v.(string), r) {
+						drop = true
+						break
+					}
+				}
+				if !drop {
+					vals = append(vals, v)
 				}
 			}
 			ret = vals

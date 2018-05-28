@@ -7,31 +7,36 @@
       {
         "type": "url",
         "key": "article",
-        "xpath": "//div[@class='t-pre']//li/a/@href",
-        "re": "",
-        "js": ""
+        "xpath": "//div[@class='t-pre']//li/a/@href"
       },
       {
         "type": "dom",
         "key": "posts",
-        "xpath": "//table[contains(concat(' ', @class, ' '), ' article ')]",
-        "re": "",
-        "js": ""
+        "xpath": "//table[contains(concat(' ', @class, ' '), ' article ')]"
       }
     ],
     "posts": [
       {
+        "type": "text",
+        "key": "text",
+        "xpath": ".//td[contains(concat(' ', @class, ' '), ' a-content ')]"
+      },
+      {
         "type": "html",
-        "key": "content",
+        "key": "meta",
         "xpath": ".//td[contains(concat(' ', @class, ' '), ' a-content ')]",
-        "re": "",
-        "js": ""
+        "re": [
+          "发信人:(?P<author>.+?)\\((?P<nick>.+?)\\).*?信区:(?P<board>.+?)<br/>",
+          "标  题:(?P<title>.+?)<br/>",
+          "发信站:(?P<site>.+?)\\((?P<time>.+?)\\)",
+          "\\[FROM: (?P<ip>[\\d\\.\\*]+?)\\]"
+        ]
       },
       {
         "type": "text",
         "key": "floor",
         "xpath": ".//span[contains(@class, 'a-pos')]",
-        "re": "(\\d+|楼主)",
+        "re": ["(\\d+|楼主)"],
         "js": "function process(s){if(s=='楼主') return '0'; return s;}"
       }
     ]
