@@ -7,7 +7,7 @@
       {
         "type": "url",
         "key": "article",
-        "xpath": "//div[@class='t-pre']//li[@class='page-select']/following-sibling::li[1]/a/@href",
+        "xpath": "//div[@class='t-pre']//li/a/@href",
         "re": "",
         "js": ""
       },
