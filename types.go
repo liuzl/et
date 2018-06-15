@@ -1,9 +1,10 @@
 package et
 
 import (
+	"sync"
+
 	"github.com/robertkrimen/otto"
 	"golang.org/x/net/html"
-	"sync"
 )
 
 type Rule struct {

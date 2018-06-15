@@ -2,6 +2,7 @@ package et
 
 import (
 	"fmt"
+
 	"github.com/robertkrimen/otto"
 )
 
