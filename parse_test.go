@@ -1,10 +1,11 @@
 package et
 
 import (
-	"crawler.club/dl"
 	"encoding/json"
 	"io/ioutil"
 	"testing"
+
+	"crawler.club/dl"
 	"zliu.org/goutil"
 )
 

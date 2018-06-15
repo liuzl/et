@@ -2,11 +2,12 @@ package et
 
 import (
 	"fmt"
-	"github.com/antchfx/htmlquery"
-	"golang.org/x/net/html"
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/antchfx/htmlquery"
+	"golang.org/x/net/html"
 	"zliu.org/goutil"
 )
 
