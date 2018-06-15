@@ -1,8 +1,6 @@
 package et
 
 import (
-	"fmt"
-
 	"github.com/robertkrimen/otto"
 )
 
@@ -11,24 +9,15 @@ func (r *Rule) RunJs(v interface{}) (interface{}, error) {
 		return v, nil
 	}
 	var err error
-	r.Do(func() {
-		r.vm = otto.New()
-		if _, err = r.vm.Run(r.Js); err != nil {
-			r.vm = nil
-			return
-		}
-	})
+	vm := otto.New()
+	if _, err = vm.Run(r.Js); err != nil {
+		return nil, err
+	}
+	jsVal, err := vm.ToValue(v)
 	if err != nil {
 		return nil, err
 	}
-	if r.vm == nil {
-		return nil, fmt.Errorf("rule.vm is nil")
-	}
-	jsVal, err := r.vm.ToValue(v)
-	if err != nil {
-		return nil, err
-	}
-	ret, err := r.vm.Call("process", nil, jsVal)
+	ret, err := vm.Call("process", nil, jsVal)
 	if err != nil {
 		return nil, err
 	}

@@ -1,15 +1,10 @@
 package et
 
 import (
-	"sync"
-
-	"github.com/robertkrimen/otto"
 	"golang.org/x/net/html"
 )
 
 type Rule struct {
-	sync.Once
-	vm *otto.Otto
 	// RuleTypes: url, dom, text, html
 	Type  string   `json:"type"`
 	Key   string   `json:"key"`
@@ -19,9 +14,6 @@ type Rule struct {
 }
 
 type Parser struct {
-	sync.Once
-	vm *otto.Otto
-
 	Name          string             `json:"name"`
 	DefaultFields bool               `json:"default_fields""`
 	ExampleUrl    string             `json:"example_url"`
