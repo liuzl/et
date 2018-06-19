@@ -7,9 +7,12 @@ import (
 	"time"
 
 	"github.com/antchfx/htmlquery"
+	"github.com/tkuchiki/parsetime"
 	"golang.org/x/net/html"
 	"zliu.org/goutil"
 )
+
+var timeParser, _ = parsetime.NewParseTime("Asia/Shanghai")
 
 func (p *Parser) Parse(
 	page, pageUrl string) ([]*UrlTask, []map[string]interface{}, error) {
@@ -74,7 +77,39 @@ func (p *Parser) Parse(
 		for _, v := range items {
 			v["from_url_"] = pageUrl
 			v["from_parser_"] = p.Name
-			v["crawl_time_"] = time.Now().Format("2006-01-02 15:04:05")
+			v["crawl_time_"] = time.Now().UTC().Format("2006-01-02T15:04:05Z")
+
+			if v["time_"] != nil {
+				switch v["time_"].(type) {
+				case string:
+					t, err := timeParser.Parse(v["time_"].(string))
+					if err != nil {
+						v["time_"] = t.UTC().Format("2006-01-02T15:04:05Z")
+					} else {
+						delete(v, "time_")
+					}
+				case []interface{}:
+					arr := v["time_"].([]interface{})
+					if len(arr) == 0 {
+						delete(v, "time_")
+					} else {
+						var t time.Time
+						for _, ts := range arr {
+							tt, err := timeParser.Parse(fmt.Sprintf("%+v", ts))
+							if err == nil && tt.After(t) {
+								t = tt
+							}
+						}
+						if t.IsZero() {
+							delete(v, "time_")
+						} else {
+							v["time_"] = t.UTC().Format("2006-01-02T15:04:05Z")
+						}
+					}
+				default:
+					delete(v, "time_")
+				}
+			}
 		}
 	}
 	items, err = p.RunJs(items)
