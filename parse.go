@@ -77,14 +77,14 @@ func (p *Parser) Parse(
 		for _, v := range items {
 			v["from_url_"] = pageUrl
 			v["from_parser_"] = p.Name
-			v["crawl_time_"] = time.Now().UTC().Format("2006-01-02T15:04:05Z")
+			v["crawl_time_"] = time.Now().UTC().Format(time.RFC3339)
 
 			if v["time_"] != nil {
 				switch v["time_"].(type) {
 				case string:
 					t, err := timeParser.Parse(v["time_"].(string))
 					if err != nil {
-						v["time_"] = t.UTC().Format("2006-01-02T15:04:05Z")
+						v["time_"] = t.UTC().Format(time.RFC3339)
 					} else {
 						delete(v, "time_")
 					}
@@ -103,7 +103,7 @@ func (p *Parser) Parse(
 						if t.IsZero() {
 							delete(v, "time_")
 						} else {
-							v["time_"] = t.UTC().Format("2006-01-02T15:04:05Z")
+							v["time_"] = t.UTC().Format(time.RFC3339)
 						}
 					}
 				default:
