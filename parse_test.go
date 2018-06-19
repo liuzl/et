@@ -11,7 +11,8 @@ import (
 
 var tests = [][]string{
 	//[]string{"newsmth.net.json", "http://www.newsmth.net/nForum/article/RealEstate/7124059"},
-	[]string{"section.json", "http://www.newsmth.net/nForum/section/1"},
+	//[]string{"section.json", "http://www.newsmth.net/nForum/section/1"},
+	[]string{"board.json", "http://www.newsmth.net/nForum/board/Universal"},
 }
 
 func TestParse(t *testing.T) {
