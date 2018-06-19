@@ -16,7 +16,7 @@
       },
       {
         "type": "text",
-        "key": "time",
+        "key": "time_",
         "xpath": "//tr[not(contains(@class, 'top'))][1]/td[8]"
       }
     ]
