@@ -30,4 +30,5 @@ type DomNode struct {
 type UrlTask struct {
 	ParserName string `json:"parser_name"`
 	Url        string `json:"url"`
+	TaskName   string `json:"task_name"`
 }

@@ -146,7 +146,7 @@ func (p *Parser) parseNode(node *html.Node, name string,
 			if rule.Type == "url" {
 				for _, v := range vals {
 					if u, ok := v.(string); ok {
-						urls = append(urls, &UrlTask{rule.Key, u})
+						urls = append(urls, &UrlTask{ParserName: rule.Key, Url: u})
 					}
 				}
 			}
