@@ -2,12 +2,54 @@ package et
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/antchfx/htmlquery"
+	"github.com/liuzl/store"
 	"golang.org/x/net/html"
 	"zliu.org/goutil"
 )
+
+var linkStore *store.LevelStore
+var once sync.Once
+
+func getLinkStore() *store.LevelStore {
+	once.Do(func() {
+		dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+		if err != nil {
+			panic(err)
+		}
+		linkStore, err = store.NewLevelStore(filepath.Join(dir, ".etlinks"))
+		if err != nil {
+			panic(err)
+		}
+	})
+	return linkStore
+}
+
+func ParseNewLinks(page, url string) ([]string, error) {
+	links, err := ParseLinks(page, url)
+	if err != nil {
+		return nil, err
+	}
+	var ret []string
+	for _, link := range links {
+		has, err := getLinkStore().Has(link)
+		if err != nil {
+			return nil, err
+		}
+		if has {
+			continue
+		}
+		getLinkStore().Put(link, []byte(time.Now().UTC().Format(time.RFC3339)))
+		ret = append(ret, link)
+	}
+	return ret, nil
+}
 
 func ParseLinks(page, url string) ([]string, error) {
 	doc, err := htmlquery.Parse(strings.NewReader(page))
