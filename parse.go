@@ -69,7 +69,10 @@ func (p *Parser) Parse(
 			t, _ := root.Item["root"].([]map[string]interface{})
 			items = append(items, t...)
 		default:
-			items = append(items, root.Item["root"].(map[string]interface{}))
+			item := root.Item["root"].(map[string]interface{})
+			if len(item) > 0 {
+				items = append(items, item)
+			}
 		}
 	}
 
@@ -198,6 +201,8 @@ func (p *Parser) parseNodeByRule(
 			ret = append(ret, interface{}(strings.TrimSpace(htmlquery.InnerText(n))))
 		case "html":
 			ret = append(ret, interface{}(htmlquery.OutputHTML(n, true)))
+		case "attr":
+			ret = append(ret, interface{}(htmlquery.SelectAttr(n, rule.Key)))
 		default:
 			return nil, fmt.Errorf("unkown rule type: %s", rule.Type)
 		}
