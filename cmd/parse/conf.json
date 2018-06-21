@@ -1,0 +1,27 @@
+{
+  "name": "bjjtgl",
+  "example_url": "http://sslk.bjjtgl.gov.cn/roadpublish/Map/vmsimg/vmsimage/secondrealinfo.htm",
+  "default_fields": true,
+  "rules": {
+    "root": [
+      {
+        "type": "dom",
+        "key": "infos",
+        "xpath": "//a"
+      }
+    ],
+    "infos": [
+      {
+        "type": "text",
+        "key": "text",
+        "xpath": "."
+      },
+      {
+        "type": "attr",
+        "key": "class",
+        "xpath": "."
+      }
+    ]
+  },
+  "js": ""
+}
