@@ -14,7 +14,6 @@ import (
 
 var (
 	conf = flag.String("conf", "bjjtgl.json", "parse conf file")
-	url  = flag.String("url", "http://sslk.bjjtgl.gov.cn/roadpublish/Map/vmsimg/vmsimage/secondrealinfo.htm", "url")
 )
 
 func main() {
@@ -27,11 +26,11 @@ func main() {
 	if err = json.Unmarshal(b, p); err != nil {
 		log.Fatal(err)
 	}
-	resp := dl.DownloadUrl(*url)
+	resp := dl.DownloadUrl(p.ExampleUrl)
 	if resp.Error != nil {
 		log.Fatal(resp.Error)
 	}
-	urls, items, err := p.Parse(resp.Text, *url)
+	urls, items, err := p.Parse(resp.Text, p.ExampleUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
