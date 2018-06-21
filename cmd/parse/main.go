@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	conf = flag.String("conf", "conf.json", "parse conf file")
+	conf = flag.String("conf", "bjjtgl.json", "parse conf file")
 	url  = flag.String("url", "http://sslk.bjjtgl.gov.cn/roadpublish/Map/vmsimg/vmsimage/secondrealinfo.htm", "url")
 )
 
