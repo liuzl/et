@@ -10,7 +10,7 @@ import (
 )
 
 var tests = [][]string{
-	//[]string{"newsmth.net.json", "http://www.newsmth.net/nForum/article/RealEstate/7124059"},
+	//[]string{"article.json", "http://www.newsmth.net/nForum/article/RealEstate/7124059"},
 	//[]string{"section.json", "http://www.newsmth.net/nForum/section/1"},
 	[]string{"board.json", "http://www.newsmth.net/nForum/board/Universal"},
 }
