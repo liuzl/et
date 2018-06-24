@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/antchfx/htmlquery"
+	"github.com/crawlerclub/ce"
 	"github.com/tkuchiki/parsetime"
 	"golang.org/x/net/html"
 	"zliu.org/goutil"
@@ -198,7 +199,7 @@ func (p *Parser) parseNodeByRule(
 				ret = append(ret, interface{}(u))
 			}
 		case "text":
-			ret = append(ret, interface{}(strings.TrimSpace(htmlquery.InnerText(n))))
+			ret = append(ret, interface{}(ce.TextFromHTML(htmlquery.OutputHTML(n, true))))
 		case "html":
 			ret = append(ret, interface{}(htmlquery.OutputHTML(n, true)))
 		case "attr":
