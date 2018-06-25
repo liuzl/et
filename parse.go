@@ -220,7 +220,11 @@ func (p *Parser) parseNodeByRule(
 						return nil, fmt.Errorf("regex:[%s] error:%+v", r, err)
 					}
 					for k, vv := range m {
-						obj[k] = vv
+						if rule.Type == "html" {
+							obj[k] = html.UnescapeString(vv)
+						} else {
+							obj[k] = vv
+						}
 					}
 				}
 				switch len(obj) {
