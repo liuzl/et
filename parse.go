@@ -149,8 +149,21 @@ func (p *Parser) parseNode(node *html.Node, name string,
 		} else {
 			if rule.Type == "url" {
 				for _, v := range vals {
-					if u, ok := v.(string); ok {
-						urls = append(urls, &UrlTask{ParserName: rule.Key, Url: u})
+					switch v.(type) {
+					case string:
+						urls = append(urls,
+							&UrlTask{ParserName: rule.Key, Url: v.(string)})
+					case []map[string]interface{}:
+						for _, m := range v.([]map[string]interface{}) {
+							if m["url"] == nil || m["key"] == nil {
+								continue
+							}
+							u, o1 := m["url"].(string)
+							k, o2 := m["key"].(string)
+							if o1 && o2 {
+								urls = append(urls, &UrlTask{ParserName: k, Url: u})
+							}
+						}
 					}
 				}
 			}
