@@ -14,6 +14,7 @@ import (
 
 var (
 	conf = flag.String("conf", "bjjtgl.json", "parse conf file")
+	url  = flag.String("url", "", "url to download and parse")
 	ua   = flag.String("ua", "", "pc, mobile, google. Golang UA for empty")
 )
 
@@ -27,7 +28,11 @@ func main() {
 	if err = json.Unmarshal(b, p); err != nil {
 		log.Fatal(err)
 	}
-	var req = &dl.HttpRequest{Url: p.ExampleUrl}
+	var u = p.ExampleUrl
+	if *url != "" {
+		u = *url
+	}
+	var req = &dl.HttpRequest{Url: u}
 	if *ua == "pc" || *ua == "mobile" || *ua == "google" {
 		req.Platform = *ua
 	}
@@ -35,7 +40,8 @@ func main() {
 	if resp.Error != nil {
 		log.Fatal(resp.Error)
 	}
-	urls, items, err := p.Parse(resp.Text, p.ExampleUrl)
+
+	urls, items, err := p.Parse(resp.Text, u)
 	if err != nil {
 		log.Fatal(err)
 	}
