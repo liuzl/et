@@ -4,6 +4,7 @@ import (
 	"github.com/robertkrimen/otto"
 )
 
+// RunJs runs the rule's js code for v
 func (r *Rule) RunJs(v interface{}) (interface{}, error) {
 	if r.Js == "" {
 		return v, nil
