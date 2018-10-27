@@ -6,6 +6,7 @@ import (
 	"github.com/robertkrimen/otto"
 )
 
+// RunJs runs the parser's js codes for items
 func (p *Parser) RunJs(
 	items []map[string]interface{}) ([]map[string]interface{}, error) {
 

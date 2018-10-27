@@ -15,6 +15,7 @@ import (
 
 var timeParser, _ = parsetime.NewParseTime("Asia/Shanghai")
 
+// Parse parses the page of pageUrl and returns new UrlTasks and Items
 func (p *Parser) Parse(
 	page, pageUrl string) ([]*UrlTask, []map[string]interface{}, error) {
 
@@ -205,12 +206,11 @@ func (p *Parser) parseNodeByRule(
 		case "dom":
 			ret = append(ret, interface{}(n))
 		case "url":
-			if u, err := goutil.MakeAbsoluteUrl(
-				htmlquery.SelectAttr(n, "href"), pageUrl); err != nil {
+			u, err := goutil.MakeAbsoluteUrl(htmlquery.SelectAttr(n, "href"), pageUrl)
+			if err != nil {
 				return nil, fmt.Errorf("MakeAbsoluteUrl err: %+v", err)
-			} else {
-				ret = append(ret, interface{}(u))
 			}
+			ret = append(ret, interface{}(u))
 		case "text":
 			ret = append(ret, interface{}(ce.TextFromHTML(htmlquery.OutputHTML(n, true))))
 		case "html":

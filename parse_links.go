@@ -31,6 +31,7 @@ func getLinkStore() *store.LevelStore {
 	return linkStore
 }
 
+// ParseNewLinks returns new urls contained in html page
 func ParseNewLinks(page, url string) ([]string, error) {
 	links, err := ParseLinks(page, url)
 	if err != nil {
@@ -51,6 +52,7 @@ func ParseNewLinks(page, url string) ([]string, error) {
 	return ret, nil
 }
 
+// ParseLinks returns all urls contained in html page
 func ParseLinks(page, url string) ([]string, error) {
 	doc, err := htmlquery.Parse(strings.NewReader(page))
 	if err != nil {
