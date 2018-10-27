@@ -218,7 +218,7 @@ func (p *Parser) parseNodeByRule(
 		case "attr":
 			ret = append(ret, interface{}(htmlquery.SelectAttr(n, rule.Key)))
 		default:
-			return nil, fmt.Errorf("unkown rule type: %s", rule.Type)
+			return nil, fmt.Errorf("unknown rule type: %s", rule.Type)
 		}
 	}
 	if rule.Re != nil {
