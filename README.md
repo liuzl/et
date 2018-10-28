@@ -1,1 +1,2 @@
 # Extract-Transform from the web
+[![GoDoc](https://godoc.org/crawler.club/et?status.svg)](https://godoc.org/crawler.club/et)[![Go Report Card](https://goreportcard.com/badge/crawler.club/et)](https://goreportcard.com/report/crawler.club/et)
