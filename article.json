@@ -1,6 +1,6 @@
 {
   "name": "article",
-  "example_url": "http://www.newsmth.net/nForum/article/EconForum/1702643093",
+  "example_url": "http://www.newsmth.net/nForum/article/AI/65703",
   "default_fields": true,
   "rules": {
     "root": [
@@ -26,7 +26,7 @@
         "key": "meta",
         "xpath": ".//td[contains(concat(' ', @class, ' '), ' a-content ')]",
         "re": [
-          "发信人:(?P<author>.+?)\\((?P<nick>.+?)\\).*?信区:(?P<board>.+?)<br/>",
+          "发信人:(?P<author>.+?)\\((?P<nick>.*?)\\).*?信区:(?P<board>.+?)<br/>",
           "标  题:(?P<title>.+?)<br/>",
           "发信站:(?P<site>.+?)\\((?P<time>.+?)\\)",
           "\\[FROM: (?P<ip>[\\d\\.\\*]+?)\\]"
@@ -41,5 +41,5 @@
       }
     ]
   },
-  "js": ""
+  "js": "function process(item){item[0].ext='post process'; return item;}"
 }
