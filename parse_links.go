@@ -61,7 +61,7 @@ func ParseLinks(page, url string) ([]string, error) {
 	var links []string
 	htmlquery.FindEach(doc, "//a", func(i int, node *html.Node) {
 		link := htmlquery.SelectAttr(node, "href")
-		if u, err := goutil.MakeAbsoluteUrl(link, url); err == nil {
+		if u, err := goutil.MakeAbsoluteURL(link, url); err == nil {
 			if strings.HasPrefix(u, "http") && !strings.HasSuffix(u, ".exe") {
 				links = append(links, u)
 			}

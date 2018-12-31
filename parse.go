@@ -206,7 +206,7 @@ func (p *Parser) parseNodeByRule(
 		case "dom":
 			ret = append(ret, interface{}(n))
 		case "url":
-			u, err := goutil.MakeAbsoluteUrl(htmlquery.SelectAttr(n, "href"), pageUrl)
+			u, err := goutil.MakeAbsoluteURL(htmlquery.SelectAttr(n, "href"), pageUrl)
 			if err != nil {
 				return nil, fmt.Errorf("MakeAbsoluteUrl err: %+v", err)
 			}
