@@ -33,7 +33,8 @@ type DomNode struct {
 
 // UrlTask contains a crawling task of Url that should be parsed by ParserName
 type UrlTask struct {
-	ParserName string `json:"parser_name"`
-	Url        string `json:"url"`
-	TaskName   string `json:"task_name"`
+	ParserName string      `json:"parser_name"`
+	Url        string      `json:"url"`
+	TaskName   string      `json:"task_name"`
+	Ext        interface{} `json:"ext"`
 }
