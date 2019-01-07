@@ -45,11 +45,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if b, err = goutil.JsonMarshalIndent(urls, "", "  "); err != nil {
+	if b, err = goutil.JSONMarshalIndent(urls, "", "  "); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("tasks: %s\n", string(b))
-	if b, err = goutil.JsonMarshalIndent(items, "", "  "); err != nil {
+	if b, err = goutil.JSONMarshalIndent(items, "", "  "); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("items: %s\n", string(b))
