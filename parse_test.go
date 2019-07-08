@@ -26,7 +26,7 @@ func TestParse(t *testing.T) {
 			t.Fatal(err)
 		}
 		url := test[1]
-		resp := dl.DownloadUrlWithProxy(url)
+		resp := dl.DownloadUrl(url)
 		if resp.Error != nil {
 			t.Fatal(resp.Error)
 		}
@@ -34,11 +34,11 @@ func TestParse(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if b, err = goutil.JsonMarshalIndent(urls, "", "  "); err != nil {
+		if b, err = goutil.JSONMarshalIndent(urls, "", "  "); err != nil {
 			t.Fatal(err)
 		}
 		t.Log(string(b))
-		if b, err = goutil.JsonMarshalIndent(items, "", "  "); err != nil {
+		if b, err = goutil.JSONMarshalIndent(items, "", "  "); err != nil {
 			t.Fatal(err)
 		}
 		t.Log(string(b))
