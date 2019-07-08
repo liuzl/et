@@ -10,7 +10,6 @@ import (
 
 	"github.com/antchfx/htmlquery"
 	"github.com/liuzl/store"
-	"golang.org/x/net/html"
 	"zliu.org/goutil"
 )
 
@@ -59,13 +58,14 @@ func ParseLinks(page, url string) ([]string, error) {
 		return nil, fmt.Errorf("htmlquery.Parse err: %+v", err)
 	}
 	var links []string
-	htmlquery.FindEach(doc, "//a", func(i int, node *html.Node) {
+	nodes := htmlquery.Find(doc, "//a")
+	for _, node := range nodes {
 		link := htmlquery.SelectAttr(node, "href")
 		if u, err := goutil.MakeAbsoluteURL(link, url); err == nil {
 			if strings.HasPrefix(u, "http") && !strings.HasSuffix(u, ".exe") {
 				links = append(links, u)
 			}
 		}
-	})
+	}
 	return links, nil
 }
