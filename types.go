@@ -20,6 +20,7 @@ type Parser struct {
 	Name          string             `json:"name"`
 	DefaultFields bool               `json:"default_fields"`
 	ExampleUrl    string             `json:"example_url"`
+	UA            string             `json:"ua"`
 	Urls          []string           `json:"urls"`
 	Rules         map[string][]*Rule `json:"rules"`
 	Js            string             `json:"js"`

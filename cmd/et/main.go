@@ -35,6 +35,8 @@ func main() {
 	var req = &dl.HttpRequest{Url: u}
 	if *ua == "pc" || *ua == "mobile" || *ua == "google" {
 		req.Platform = *ua
+	} else {
+		req.Platform = p.UA
 	}
 	resp := dl.Download(req)
 	if resp.Error != nil {

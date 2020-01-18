@@ -3,18 +3,23 @@ module crawler.club/et
 go 1.13
 
 require (
+	crawler.club/dl v0.0.0-20180802230048-83d6f23785a0
 	github.com/GeertJohan/go.rice v1.0.0 // indirect
 	github.com/abadojack/whatlanggo v1.0.1 // indirect
 	github.com/antchfx/htmlquery v1.2.0
 	github.com/antchfx/xpath v1.1.2 // indirect
+	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
 	github.com/crawlerclub/ce v0.0.0-20190110091403-56c99592cfd5
 	github.com/eknkc/basex v1.0.0 // indirect
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
 	github.com/golang/groupcache v0.0.0-20191027212112-611e8accdfc9 // indirect
+	github.com/juju/errors v0.0.0-20190930114154-d42613fe1ab9 // indirect
 	github.com/liuzl/goutil v0.0.0-20190215100315-4dfc4931403a // indirect
 	github.com/liuzl/ip2loc v0.0.0-20171111140722-e0a8ae9f4e08 // indirect
 	github.com/liuzl/ip2tz v0.0.0-20170802032530-50452f4a0ca2 // indirect
 	github.com/liuzl/store v0.0.0-20190530065605-e2dbcd3c77fc
 	github.com/robertkrimen/otto v0.0.0-20180617131154-15f95af6e78d
+	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/tkuchiki/go-timezone v0.1.4 // indirect
 	github.com/tkuchiki/parsetime v0.0.0-20160517140325-bece749572a8
